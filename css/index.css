@@ -1,0 +1,70 @@
+.container{
+    width: 25%;
+}
+.enter{
+    position: relative;
+    margin: 20px 0;
+}
+.enter input{
+   background-color: palevioletred;
+   color: white;
+}
+.enter input::placeholder{
+   color: white;
+}
+.plus{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 40px;
+    height: 40px;
+    color: deeppink;
+
+    transform: translateX(50%);
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid deeppink;
+}
+.myTasks__content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.myTasks__content p{
+    margin: 0;
+}
+.myTasks__btn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.myTasks__content button{
+    background-color: transparent;
+    border-color: white;
+    color: gray;
+    border: none;
+}
+.btnDelete{
+    margin-right: 10px;
+    border: none;
+    font-size: 25px;
+    color: gray;
+
+    justify-self: end;
+}
+.btnCheck{
+    border-color: gray;
+    color: gray;
+    font-size: 14px;
+    justify-self: end;
+
+}
+.checked{
+    margin-bottom: 50px;
+}
+.checked .myTasks__content{
+    
+    background-color: white;
+    color: green;
+}
