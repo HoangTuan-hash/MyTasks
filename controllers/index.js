@@ -1,15 +1,36 @@
-var mangTask = [];
+var arrayTasks = [];
 document.querySelector("#btnPlus").onclick = function () {
-  var acti = document.querySelector("#activity").value;
-  mangTask.push(acti);
-  renderTasks(mangTask,'#myTask');
+  var myTasks = new MyTasks();
+  myTasks.taskName = document.querySelector("#activity").value;
+
+  arrayTasks.push(myTasks);
+  console.log(arrayTasks);
+  renderTasks(arrayTasks);
   document.querySelector("#activity").value = '';
 };
-var renderTasks = function (arrayTask,id) {
-  var chuoiTask = "";
-  for (var index = 0; index < arrayTask.length; index++) {
-    var task = arrayTask[index];
-    chuoiTask += `
+var renderTasks = function (arrayTasks) {
+  var chuoiTaskNot = '';
+  var chuoiTaskDone='';
+  var titleNot = '<h3 class="text-center text-danger">My Tasks</h3>'
+  var titleDone = '<h3 class="text-center text-success">Done</h3>'
+  for (var index = 0; index < arrayTasks.length; index++) {
+    var task = arrayTasks[index].taskName;
+   
+    if(arrayTasks[index].done){
+      chuoiTaskDone += `
+                    
+                    <div type="text" class="form-control myTasks__content" placeholder="Enter an activity">
+                        <p class="myTasks__text">${task}</p>
+                        <div class="myTasks__btn">
+                            <button class="btnDelete" id="btnDelete"><i class="fa fa-trash-o" onclick="xoaTask('${task}')"></i></button>
+                            <button class="btnCheck" id="btnCheck"  onclick="checked('${task}')"><i class="fa fa-check"></i></button>
+                        </div>
+                    </div>
+                    `;
+    }
+    else{
+      chuoiTaskNot  += `
+                    
                     <div type="text" class="form-control myTasks__content" placeholder="Enter an activity">
                         <p class="myTasks__text">${task}</p>
                         <div class="myTasks__btn">
@@ -17,48 +38,32 @@ var renderTasks = function (arrayTask,id) {
                             <button class="btnCheck" id="btnCheck"  onclick="checked('${task}')"><i class="fa fa-check"></i></button>
                         </div>
                     </div>
-                `;
-  }
-  var test = `${arrayTask}`;
-  console.log('gia tri test la',test);
-  document.querySelector(id).innerHTML = chuoiTask;
+                    `;
+    }
+  } 
+  document.querySelector('#myTask').innerHTML = titleNot + chuoiTaskNot;
+  document.querySelector('#tasksChecked').innerHTML = titleDone + chuoiTaskDone;
+
 };
-//Xóa các tasks chưa làm
+//Xóa các tasks
 var xoaTask = function (textTask) {
-  for (var index = mangTask.length - 1; index >= 0; index--) {
-    var taskDelete = mangTask[index];
+  for (var index = arrayTasks.length - 1; index >= 0; index--) {
+    var taskDelete = arrayTasks[index].taskName;
     if (taskDelete === textTask) {
-      mangTask.splice(index, 1);
+      arrayTasks.splice(index, 1);
     }
   }
-  renderTasks(mangTask,'#myTask');
+  renderTasks(arrayTasks);
 };
-// Đem thẻ đã check vào trong khối checked
-var blockCheck = document.querySelector("#tasks__checked");
-var mangChecked = [];
-var chuoiChecked = '';
-var checked = function (textTask) {
- 
-  for (let index = 0; index < mangTask.length; index++) {
-    var taskChecked = mangTask[index];
-    
-    if (taskChecked === textTask) {
-      mangChecked.push(taskChecked);
+
+var checked = function(task){
+  for(var i =0; i<arrayTasks.length;i++){
+    console.log(task);
+    console.log((arrayTasks[i].taskName));
+    if(arrayTasks[i].taskName === task ){
+      arrayTasks[i].done = true;
     }
-    mangTask.splice(taskChecked,1);
+    console.log(arrayTasks[i].done);
   }
-  renderTasks(mangChecked,'#tasks__checked');
-  renderTasks(mangTask,'#myTask');
-  document.getElementById('btnCheck').style.color = 'green';
-};
-
-
-// var xoaChecked = function(value){
-//   for (let index = 0; index < mangTask.length; index++) {
-//     var deleteChecked =  mangChecked[index];
-//     if(value === deleteChecked){
-//       mangChecked.splice(value,1);
-//     }
-//   }
-//   renderTasks(mangChecked,'#checked');
-// }
+  renderTasks(arrayTasks);
+}

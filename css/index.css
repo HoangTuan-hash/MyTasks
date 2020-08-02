@@ -64,7 +64,9 @@
     margin-bottom: 50px;
 }
 .checked .myTasks__content{
-    
     background-color: white;
+    color: green;
+}
+.checked .btnCheck{
     color: green;
 }
